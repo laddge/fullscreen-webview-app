@@ -1,10 +1,28 @@
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, TextInput, Button, Text, View } from 'react-native';
 
 export default function App() {
+  const [url, setUrl] = useState('');
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      { loaded ?
+        <>
+          <Text>{url}</Text>
+        </>
+      :
+        <>
+          <TextInput
+            style={styles.input}
+            inputMode="url"
+            onChangeText={setUrl}
+            value={url}
+          />
+          <Button title="Open" onPress={() => setLoaded(true)} />
+        </>
+      }
       <StatusBar hidden />
     </View>
   );
@@ -16,5 +34,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
+  },
+  input: {
+    width: '100%',
+    maxWidth: 640,
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    borderRadius: 3,
+    padding: 10,
   },
 });
